@@ -1,19 +1,19 @@
 # Assignment 4. Patient Zero
 
-Student ID: PENDING
-Name: PENDING
-Group: PENDING
+Student ID: 254634
+Name: Darkhan Daurambekov
+Group: SE-2512
 
-**Status:** The five algorithms are implemented and checked. Personal data, personal output, the marker-specific answer and the final screenshot are pending the student's exact Moodle ID. This draft is not ready for submission yet.
+**Status:** The personal data for Student ID 254634, program output and full-page lab screenshot are included. All nine results agree with the lab. Student review and revision of the AI-assisted draft are required before submission.
 
 ## Run and personalize
 
-Java 17 or newer (JDK) is required. Run commands from the `patient-zero` folder.
+Java 17 or newer (JDK) is required. Run commands from the `patient-zero` folder. The supplied personal files are already generated; use Prepare only if you need to reproduce them.
 
 ```bash
 java tools/Check.java
 java -cp out tools/SelfTest.java
-java tools/Prepare.java YOUR_STUDENT_ID "YOUR NAME" "YOUR GROUP"
+java tools/Prepare.java 254634 "Darkhan Daurambekov" "SE-2512"
 ```
 
 `Prepare` generates the four personal files, compiles the sources, runs Main and fills in the identity, program output and personal marker border below. It does not create a screenshot. Open `output/outbreak.html`, check the nine green ticks and save a full-page screenshot as `output/outbreak.png`. Review this report and explain the answers in your own words before submission.
@@ -29,10 +29,20 @@ java -cp out Bench
 ## Program output
 
 <!-- OUTPUT START -->
-Pending: run Prepare with the exact Moodle Student ID. No example results are presented as personal results.
+```text
+Mutations: 97
+Shared core: 1167
+Marker hits: 5
+First hit: 4681
+Border length: 4
+Shared words: 494
+Tests needed: 39
+Cheapest testing: 168
+Longest chain: 30
+```
 <!-- OUTPUT END -->
 
-My outbreak report (add the personal screenshot before submission):
+My outbreak report (full-page screenshot on the personal data):
 
 ![outbreak](output/outbreak.png)
 
@@ -51,7 +61,7 @@ A common subsequence keeps the letter order but may skip letters; a common subst
 `pi[i]` is the length of the longest proper prefix of the marker prefix ending at `i` that is also its suffix. After a mismatch, KMP uses `pi[j-1]` to retain the longest useful part of the letters already matched; it changes the marker pointer while the text pointer continues forward. The final prefix-function value is the marker's Border length, and after a full match this same fallback preserves overlapping occurrences.
 
 <!-- BORDER START -->
-Personal marker border: PENDING Student ID.
+My marker is `GGAAATGGAA` and its Border length is **4**. Its longest proper prefix that is also a suffix is `GGAA`.
 <!-- BORDER END -->
 
 ### Mission 4
@@ -102,14 +112,4 @@ For Rabin-Karp, with k=12 fixed and few false candidates, the usual time is O(a+
 - Additional `SelfTest.java`: empty/overlapping cases, a real polynomial-hash collision and a later matching candidate in the same bucket.
 - 1,000 seeded random string cases: KMP against a direct character scan, prefix function against exhaustive borders, shared words against a direct scan, and LCS against enumeration of subsequences.
 - 300 seeded random trees: DP solutions against every subset with both real and unit costs, checking that all edges are covered; diameter against BFS from every vertex.
-- Personal-ID validation and the personal lab screenshot: pending.
-
-## Before submission
-
-- Supply the exact Student ID, name and group; run Prepare.
-- Open the personal lab console, verify all nine ticks, and add `output/outbreak.png`.
-- Read and revise the AI-assisted implementation and report as required by the assignment.
-- Ensure all four personal `data/*.txt` files, sources and screenshot are tracked.
-- Run Check, SelfTest and Main again; run Bench on your own machine if updating the timing table.
-- Push the included main branch with its real commit history to a public GitHub repository.
-- Submit the public repository link in Moodle before its deadline.
+- Main has been run on the personal files. The lab console independently reports all nine results correct and all five missions complete; no page JavaScript errors were observed. A full-page screenshot is included in `output/outbreak.png`.
