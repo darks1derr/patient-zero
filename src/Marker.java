@@ -59,7 +59,52 @@ public class Marker {
      * Example: a = "ACGTAC", b = "TTACGT", k = 4: the words of a are ACGT, CGTA, GTAC; only ACGT is in b, so the answer is 1.
      */
     public static int sharedWords(String a, String b, int k) {
-        // TODO Mission 4
-        return -1;
+        if (k <= 0) throw new IllegalArgumentException("Window length must be positive");
+        if (a.length() < k || b.length() < k) return 0;
+        long power = 1;
+        for (int i = 1; i < k; i++) power = power * BASE % MOD;
+
+        Map<Long, List<Integer>> windows = new HashMap<>();
+        long hash = firstHash(b, k);
+        for (int j = 0; j <= b.length() - k; j++) {
+            if (j > 0) hash = slide(hash, b.charAt(j - 1), b.charAt(j + k - 1), power);
+            windows.computeIfAbsent(hash, key -> new ArrayList<>()).add(j);
+        }
+
+        int count = 0;
+        hash = firstHash(a, k);
+        for (int i = 0; i <= a.length() - k; i++) {
+            if (i > 0) hash = slide(hash, a.charAt(i - 1), a.charAt(i + k - 1), power);
+            List<Integer> candidates = windows.get(hash);
+            if (candidates == null) continue;
+            for (int j : candidates) {
+                if (sameWord(a, i, b, j, k)) {
+                    count++; // Count this position in A once, even if B has many copies.
+                    break;
+                }
+            }
+        }
+        return count;
+    }
+
+    private static final long BASE = 257;
+    private static final long MOD = 1_000_000_007L;
+
+    private static long firstHash(String s, int k) {
+        long h = 0;
+        for (int i = 0; i < k; i++) h = (h * BASE + s.charAt(i)) % MOD;
+        return h;
+    }
+
+    private static long slide(long hash, char outgoing, char incoming, long power) {
+        long withoutFirst = (hash - outgoing * power % MOD + MOD) % MOD;
+        return (withoutFirst * BASE + incoming) % MOD;
+    }
+
+    private static boolean sameWord(String a, int i, String b, int j, int k) {
+        for (int t = 0; t < k; t++) {
+            if (a.charAt(i + t) != b.charAt(j + t)) return false;
+        }
+        return true;
     }
 }
